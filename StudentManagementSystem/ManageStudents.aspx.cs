@@ -18,12 +18,24 @@ namespace StudentManagementSystem
             }
         }
 
-        private void LoadStudents()
+        private void LoadStudents(string searchQuery = "")
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "SELECT StudentID, FullName, RollNumber, Email, Class, DateOfEnrollment FROM Students";
+
+                if (!string.IsNullOrEmpty(searchQuery))
+                {
+                    query += " WHERE FullName LIKE @SearchQuery OR RollNumber LIKE @SearchQuery";
+                }
+
                 SqlCommand cmd = new SqlCommand(query, conn);
+
+                if (!string.IsNullOrEmpty(searchQuery))
+                {
+                    cmd.Parameters.AddWithValue("@SearchQuery", "%" + searchQuery + "%");
+                }
+
                 try
                 {
                     conn.Open();
@@ -40,44 +52,12 @@ namespace StudentManagementSystem
             }
         }
 
-        protected void AddStudentButton_Click(object sender, EventArgs e)
+        protected void SearchButton_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = "INSERT INTO Students (FullName, RollNumber, Email, Class, Password, DateOfEnrollment) VALUES (@FullName, @RollNumber, @Email, @Class, @Password, @DateOfEnrollment)";
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@FullName", FullNameTextBox.Text.Trim());
-                cmd.Parameters.AddWithValue("@RollNumber", RollNumberTextBox.Text.Trim());
-                cmd.Parameters.AddWithValue("@Email", EmailTextBox.Text.Trim());
-                cmd.Parameters.AddWithValue("@Class", ClassTextBox.Text.Trim());
-                cmd.Parameters.AddWithValue("@Password", PasswordTextBox.Text.Trim());
-                cmd.Parameters.AddWithValue("@DateOfEnrollment", DateTime.Now);
-
-                try
-                {
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    LoadStudents();
-                    ClearInputs();
-                }
-                catch (Exception ex)
-                {
-                    ErrorLabel.Text = "Error adding student: " + ex.Message;
-                }
-            }
+            LoadStudents(SearchTextBox.Text.Trim());
         }
 
-        private void ClearInputs()
-        {
-            FullNameTextBox.Text = string.Empty;
-            RollNumberTextBox.Text = string.Empty;
-            EmailTextBox.Text = string.Empty;
-            ClassTextBox.Text = string.Empty;
-            PasswordTextBox.Text = string.Empty;
-        }
-
-        protected void StudentsGridView_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
+        protected void StudentsGridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int studentId = Convert.ToInt32(StudentsGridView.DataKeys[e.RowIndex].Value);
 
@@ -100,19 +80,19 @@ namespace StudentManagementSystem
             }
         }
 
-        protected void StudentsGridView_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
+        protected void StudentsGridView_RowEditing(object sender, GridViewEditEventArgs e)
         {
             StudentsGridView.EditIndex = e.NewEditIndex;
             LoadStudents();
         }
 
-        protected void StudentsGridView_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
+        protected void StudentsGridView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             StudentsGridView.EditIndex = -1;
             LoadStudents();
         }
-        
-        protected void StudentsGridView_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
+
+        protected void StudentsGridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             int studentId = Convert.ToInt32(StudentsGridView.DataKeys[e.RowIndex].Value);
             string fullName = ((TextBox)StudentsGridView.Rows[e.RowIndex].Cells[1].Controls[0]).Text;
@@ -144,7 +124,5 @@ namespace StudentManagementSystem
                 }
             }
         }
-
     }
-
 }

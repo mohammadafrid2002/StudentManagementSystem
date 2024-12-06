@@ -12,7 +12,7 @@ namespace StudentManagementSystem
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Any logic when the page loads (if needed)
+           // Any logic when the page loads (if needed)
         }
 
         protected void LoginButton_Click(object sender, EventArgs e)

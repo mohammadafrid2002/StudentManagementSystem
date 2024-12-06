@@ -24,67 +24,22 @@ namespace StudentManagementSystem
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// FullNameTextBox control.
+        /// SearchTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox FullNameTextBox;
+        protected global::System.Web.UI.WebControls.TextBox SearchTextBox;
 
         /// <summary>
-        /// RollNumberTextBox control.
+        /// SearchButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox RollNumberTextBox;
-
-        /// <summary>
-        /// EmailTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EmailTextBox;
-
-        /// <summary>
-        /// ClassTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ClassTextBox;
-
-        /// <summary>
-        /// PasswordTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PasswordTextBox;
-
-        /// <summary>
-        /// AddStudentButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddStudentButton;
-
-        /// <summary>
-        /// ErrorLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ErrorLabel;
+        protected global::System.Web.UI.WebControls.Button SearchButton;
 
         /// <summary>
         /// StudentsGridView control.
@@ -94,5 +49,14 @@ namespace StudentManagementSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView StudentsGridView;
+
+        /// <summary>
+        /// ErrorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ErrorLabel;
     }
 }

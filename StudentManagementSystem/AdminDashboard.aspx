@@ -13,6 +13,7 @@
             margin: 0;
             padding: 0;
         }
+
         .dashboard-container {
             max-width: 1200px;
             margin: 20px auto;
@@ -21,18 +22,22 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .header h1 {
             color: #007bff;
         }
+
         .overview-cards {
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
         }
+
         .card {
             flex: 1;
             margin: 0 10px;
@@ -43,18 +48,22 @@
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .card h2 {
             margin: 10px 0;
         }
+
         .card p {
             font-size: 24px;
             font-weight: bold;
         }
+
         .links-container {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
+
         .link {
             margin: 0 10px;
             padding: 10px 20px;
@@ -64,8 +73,36 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .link:hover {
             background-color: #0056b3;
+        }
+
+        /* Log Out and Home Button Styles */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .action-button {
+            margin: 0 15px;
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+
+        .action-button:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -93,9 +130,17 @@
         <!-- Links Section -->
         <div class="links-container">
             <a class="link" href="ManageStudents.aspx">Manage Students</a>
-            <a class="link" href="AdminEnroll.aspx">Enroll Coursse </a>
+            <a class="link" href="AdminEnroll.aspx">Enroll Courses</a>
             <a class="link" href="ManageCourses.aspx">Manage Courses</a>
             <a class="link" href="ViewReports.aspx">View Reports</a>
+        </div>
+
+        <!-- Log Out and Home Buttons -->
+        <div class="action-buttons">
+            <!-- Log Out Button -->
+            <button class="action-button" onclick="window.location.href='AdminLogin.aspx'">Log Out</button>
+            <!-- Home Button -->
+            <button class="action-button" onclick="window.location.href='Home.aspx'">Home</button>
         </div>
     </div>
 </body>

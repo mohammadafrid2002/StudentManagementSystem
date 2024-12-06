@@ -98,22 +98,39 @@ namespace StudentManagementSystem
         }
 
         // Delete Course
-        protected void CoursesGridView_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
+        protected void CoursesGridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int courseId = Convert.ToInt32(CoursesGridView.DataKeys[e.RowIndex].Value);
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "DELETE FROM Courses WHERE CourseID = @CourseID";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@CourseID", courseId);
-
                 conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
 
-            LoadCourses();
+                // Check if the course has dependent records
+                string checkQuery = "SELECT COUNT(*) FROM StudentCourses WHERE CourseID = @CourseID";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@CourseID", courseId);
+
+                int count = (int)checkCmd.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    // Prevent deletion and notify the user
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Cannot delete the course as it has associated students.');", true);
+                }
+                else
+                {
+                    // Proceed with deletion
+                    string deleteQuery = "DELETE FROM Courses WHERE CourseID = @CourseID";
+                    SqlCommand deleteCmd = new SqlCommand(deleteQuery, conn);
+                    deleteCmd.Parameters.AddWithValue("@CourseID", courseId);
+                    deleteCmd.ExecuteNonQuery();
+
+                    LoadCourses();
+                }
+            }
         }
+
     }
 }
+

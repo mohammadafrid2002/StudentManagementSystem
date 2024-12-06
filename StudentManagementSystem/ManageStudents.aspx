@@ -6,68 +6,174 @@
     <title>Manage Students</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
         }
+
         .container {
-            margin: 20px;
+            margin: 40px auto;
+            padding: 40px;
+            background: #ffffff;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 1200px;
+            width: 90%;
         }
-        .form-section {
+
+        h2 {
+            text-align: center;
+            color: #1E90FF;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
-        label {
-            display: block;
-            margin: 5px 0;
-        }
-        input[type="text"], input[type="email"], input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 8px 12px;
-            background-color: #007bff;
+
+        .back-button {
+            background-color: #1E90FF;
             color: white;
             border: none;
-            border-radius: 4px;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
             cursor: pointer;
+            text-decoration: none;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .back-button:hover {
+            background-color: #4682b4;
         }
+
+        /* Search Bar Styling */
+        .search-bar {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 250px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            border: 2px solid #1E90FF;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        .search-bar input:focus {
+            border-color: #4682b4;
+        }
+
+        /* Search Button with Blue Color */
+        .search-bar button {
+            padding: 8px 16px;
+            background-color: #1E90FF;
+            color: white;
+            font-size: 14px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #4682b4;
+            transform: scale(1.05);
+        }
+
+        .search-bar button:focus {
+            outline: none;
+        }
+
+        /* Gridview Container */
         .gridview-container {
+            margin-top: 30px;
+        }
+
+        .error-label {
+            color: #e74c3c;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        table th {
+            background-color: #1E90FF;
+            color: white;
+        }
+
+        .table-actions button {
+            padding: 6px 12px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        .table-actions button:hover {
+            background-color: #e67e22;
+        }
+
+        /* Hover effect for rows */
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-bar input, .search-bar button {
+                width: 100%;
+            }
+
+            .container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="container">
-            <h2>Manage Students</h2>
-
-            <!-- Add Student Section -->
-            <div class="form-section">
-                <label for="FullNameTextBox">Full Name:</label>
-                <asp:TextBox ID="FullNameTextBox" runat="server" placeholder="Enter full name"></asp:TextBox>
-
-                <label for="RollNumberTextBox">Roll Number:</label>
-                <asp:TextBox ID="RollNumberTextBox" runat="server" placeholder="Enter roll number"></asp:TextBox>
-
-                <label for="EmailTextBox">Email:</label>
-                <asp:TextBox ID="EmailTextBox" runat="server" TextMode="Email" placeholder="Enter email"></asp:TextBox>
-
-                <label for="ClassTextBox">Class:</label>
-                <asp:TextBox ID="ClassTextBox" runat="server" placeholder="Enter class"></asp:TextBox>
-
-                <label for="PasswordTextBox">Password:</label>
-                <asp:TextBox ID="PasswordTextBox" runat="server" TextMode="Password" placeholder="Enter password"></asp:TextBox>
-
-                <asp:Button ID="AddStudentButton" runat="server" Text="Add Student" OnClick="AddStudentButton_Click" />
-                <asp:Label ID="ErrorLabel" runat="server" ForeColor="Red"></asp:Label>
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <h2>Manage Students</h2>
+                <a href="AdminDashboard.aspx" class="back-button">Back to Dashboard</a>
             </div>
 
-            <!-- Students List Section -->
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <asp:TextBox ID="SearchTextBox" runat="server" CssClass="form-control" Placeholder="Search by Roll Number or Name" />
+                <asp:Button ID="SearchButton" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="SearchButton_Click" />
+            </div>
+
+            <!-- Students Grid -->
             <div class="gridview-container">
                 <asp:GridView ID="StudentsGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="StudentID"
                     OnRowDeleting="StudentsGridView_RowDeleting" OnRowEditing="StudentsGridView_RowEditing"
@@ -79,12 +185,14 @@
                         <asp:BoundField DataField="Email" HeaderText="Email" />
                         <asp:BoundField DataField="Class" HeaderText="Class" />
                         <asp:BoundField DataField="DateOfEnrollment" HeaderText="Date of Enrollment" DataFormatString="{0:yyyy-MM-dd}" />
-
                         <asp:CommandField ShowEditButton="True" />
                         <asp:CommandField ShowDeleteButton="True" />
                     </Columns>
                 </asp:GridView>
             </div>
+
+            <!-- Error Label -->
+            <asp:Label ID="ErrorLabel" runat="server" CssClass="error-label"></asp:Label>
         </div>
     </form>
 </body>

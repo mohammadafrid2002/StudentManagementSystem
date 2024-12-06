@@ -15,6 +15,24 @@
             padding: 20px;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Position relative for the button inside */
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
         }
         .form-control {
             width: 100%;
@@ -59,6 +77,9 @@
 <body>
     <form id="form1" runat="server">
         <div class="container">
+            <!-- Back to Admin Dashboard Button -->
+            <a href="AdminDashboard.aspx" class="back-button">Back to Admin Dashboard</a>
+            
             <h2>Manage Courses</h2>
             <!-- Add Course Form -->
             <h3>Add New Course</h3>

@@ -15,6 +15,22 @@
             padding: 20px;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* For absolute positioning of the button */
+        }
+        .back-button {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
         }
         .tab-container {
             display: flex;
@@ -52,6 +68,18 @@
             background-color: #007bff;
             color: white;
         }
+        .download-button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .download-button:hover {
+            background-color: #218838;
+        }
     </style>
     <script>
         function switchTab(tabId) {
@@ -66,6 +94,9 @@
 <body>
     <form id="form1" runat="server">
         <div class="container">
+            <!-- Back to Admin Dashboard Button -->
+            <button type="button" class="back-button" onclick="window.location.href='AdminDashboard.aspx'">Back to Admin Dashboard</button>
+
             <h2>Reports</h2>
             <div class="tab-container">
                 <button type="button" class="tab active" onclick="switchTab('studentsTab')">Students Report</button>
@@ -82,8 +113,10 @@
                         <asp:BoundField DataField="Email" HeaderText="Email" />
                         <asp:BoundField DataField="Class" HeaderText="Class" />
                         <asp:BoundField DataField="DateOfEnrollment" HeaderText="Date of Enrollment" DataFormatString="{0:yyyy-MM-dd}" />
+                        <asp:BoundField DataField="CoursesJoined" HeaderText="Courses Joined" />
                     </Columns>
                 </asp:GridView>
+                <button type="button" class="download-button" onclick="window.location.href='ViewReports.aspx?download=students'">Download Students Report</button>
             </div>
 
             <!-- Courses Report -->
@@ -97,6 +130,7 @@
                         <asp:BoundField DataField="CreatedDate" HeaderText="Created Date" DataFormatString="{0:yyyy-MM-dd}" />
                     </Columns>
                 </asp:GridView>
+                <button type="button" class="download-button" onclick="window.location.href='ViewReports.aspx?download=courses'">Download Courses Report</button>
             </div>
         </div>
     </form>
